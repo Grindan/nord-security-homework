@@ -1,14 +1,17 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Formik, Form, Field, FormikHelpers } from 'formik';
 
 import Input from '@/components/Input';
 import { LoginFormValues } from '@/types/form';
 import { required } from '@/utils/validators';
-import authApi from '@/api/auth';
 import { saveAuthToken } from '@/utils/localStorage';
+import authApi from '@/api/auth';
 
 const LoginPage = () => {
+  const router = useRouter();
+
   const onSubmit = (
     values: LoginFormValues,
     actions: FormikHelpers<LoginFormValues>,
@@ -16,8 +19,8 @@ const LoginPage = () => {
     authApi
       .login(values)
       .then(({ token }) => {
-        // todo:
         saveAuthToken(token);
+        router.push('/dashboard');
       })
       .catch((err) => {
         // todo: add notification/alert
@@ -31,12 +34,18 @@ const LoginPage = () => {
     <div className="flex min-h-screen items-center justify-center">
       <div className="flex flex-col h-auto max-w-md bg-white rounded-[24px] px-5 py-6 w-[568px]">
         <p className="text-2xl text-center mb-5 text-slate-800">Login Page</p>
-
         <Formik
           initialValues={{ username: '', password: '' } as LoginFormValues}
           onSubmit={onSubmit}
         >
-          {({ errors, touched, handleSubmit, isSubmitting }) => {
+          {({
+            errors,
+            isValid,
+            dirty,
+            touched,
+            handleSubmit,
+            isSubmitting,
+          }) => {
             return (
               <Form onSubmit={handleSubmit}>
                 <Field
@@ -61,7 +70,7 @@ const LoginPage = () => {
 
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !isValid || !dirty}
                   className="rounded-full w-full py-3 px-4 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-400 text-white font-semibold"
                 >
                   Login

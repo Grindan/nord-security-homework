@@ -1,20 +1,17 @@
-import { ChangeEvent, FC } from 'react';
+import { FC } from 'react';
 import { FieldProps } from 'formik';
 
 type Props = {
-  name: string;
   label: string;
   type: string;
-  onChange: (e: ChangeEvent) => void;
-  onBlur: (e: ChangeEvent) => void;
   className?: string;
-  value: string;
   error?: string | boolean;
 };
 
 const Input: FC<Props & FieldProps> = ({
   field,
   label,
+  type,
   error,
   className = '',
 }) => {
@@ -24,6 +21,7 @@ const Input: FC<Props & FieldProps> = ({
       <input
         {...field}
         id={field.name}
+        type={type}
         placeholder={label}
         className="
           rounded-lg w-full text-lg text-slate-500 border border-slate-400 outline-none py-1 px-3
