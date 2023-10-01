@@ -1,27 +1,62 @@
+'use client';
+
+import { Formik, Form, Field, FormikHelpers } from 'formik';
+
 import Input from '@/components/Input';
+import { LoginFormValues } from '@/types/form';
+import { required } from '@/utils/validators';
 
 const LoginPage = () => {
+  const onSubmit = (
+    values: LoginFormValues,
+    actions: FormikHelpers<LoginFormValues>,
+  ) => {
+    actions.setSubmitting(false);
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="flex flex-col h-auto max-w-md bg-white rounded-[24px] px-5 py-6 w-[568px]">
         <p className="text-2xl text-center mb-5 text-slate-800">Login Page</p>
-        <Input
-          name="username"
-          label="Username"
-          type="text"
-          onChange={() => { }}
-          className="mb-6"
-        />
-        <Input
-          name="password"
-          label="Password"
-          type="password"
-          onChange={() => { }}
-          className="mb-8"
-        />
-        <button className="rounded-full py-3 px-4 bg-blue-600 text-white font-semibold">
-          Login
-        </button>
+
+        <Formik
+          initialValues={{ username: '', password: '' } as LoginFormValues}
+          onSubmit={onSubmit}
+        >
+          {({ errors, touched, handleSubmit, isSubmitting }) => {
+            return (
+              <Form onSubmit={handleSubmit}>
+                <Field
+                  name="username"
+                  label="Username"
+                  type="text"
+                  component={Input}
+                  validate={required}
+                  error={touched.username && errors.username}
+                  className="mb-6"
+                />
+
+                <Field
+                  name="password"
+                  label="Password"
+                  type="password"
+                  component={Input}
+                  validate={required}
+                  error={touched.password && errors.password}
+                  className="mb-8"
+                />
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="rounded-full w-full py-3 px-4 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-400 text-white font-semibold"
+                >
+                  Login
+                </button>
+              </Form>
+            );
+          }}
+        </Formik>
       </div>
     </div>
   );
