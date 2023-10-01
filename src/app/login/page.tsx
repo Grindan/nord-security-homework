@@ -5,13 +5,26 @@ import { Formik, Form, Field, FormikHelpers } from 'formik';
 import Input from '@/components/Input';
 import { LoginFormValues } from '@/types/form';
 import { required } from '@/utils/validators';
+import authApi from '@/api/auth';
+import { saveAuthToken } from '@/utils/localStorage';
 
 const LoginPage = () => {
   const onSubmit = (
     values: LoginFormValues,
     actions: FormikHelpers<LoginFormValues>,
   ) => {
-    actions.setSubmitting(false);
+    authApi
+      .login(values)
+      .then(({ token }) => {
+        // todo:
+        saveAuthToken(token);
+      })
+      .catch((err) => {
+        // todo: add notification/alert
+      })
+      .finally(() => {
+        actions.setSubmitting(false);
+      });
   };
 
   return (
@@ -33,7 +46,7 @@ const LoginPage = () => {
                   component={Input}
                   validate={required}
                   error={touched.username && errors.username}
-                  className="mb-6"
+                  className="mb-2"
                 />
 
                 <Field
@@ -43,7 +56,7 @@ const LoginPage = () => {
                   component={Input}
                   validate={required}
                   error={touched.password && errors.password}
-                  className="mb-8"
+                  className="mb-2"
                 />
 
                 <button

@@ -8,3 +8,7 @@ export const loadAuthToken = () => {
 export const saveAuthToken = (value: any) => {
   return localStorage.setItem(PATH, JSON.stringify(value));
 };
+
+export const removeAuthToken = () => {
+  return localStorage.removeItem(PATH);
+};
