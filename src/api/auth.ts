@@ -1,27 +1,25 @@
 import { LoginFormValues } from '@/types/form';
-import {
-  loadAuthToken,
-  saveAuthToken,
-  removeAuthToken,
-} from '@/utils/localStorage';
+import { saveAuthToken, removeAuthToken } from '@/utils/localStorage';
 
 import instance from './axios';
 
-export default {
-  checkUser: () => {
-    const token = loadAuthToken();
-  },
-  login: (data: LoginFormValues) => {
+class AuthApi {
+  setHeader(token: string) {
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  }
+
+  login(data: LoginFormValues) {
     return instance.post('/tokens', data).then((res) => {
-      instance.defaults.headers.common[
-        'Authorization'
-      ] = `Bearer ${res.data.token}`;
+      this.setHeader(res.data.token);
       saveAuthToken(res.data.token);
       return res.data;
     });
-  },
-  logout: () => {
+  }
+
+  logout() {
     delete instance.defaults.headers.common['Authorization'];
     removeAuthToken();
-  },
-};
+  }
+}
+
+export default new AuthApi();

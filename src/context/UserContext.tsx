@@ -11,6 +11,7 @@ import {
 } from 'react';
 
 import { loadAuthToken } from '@/utils/localStorage';
+import authApi from '@/api/auth';
 
 export type ContextType = {
   isLoading: boolean;
@@ -30,6 +31,7 @@ export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const loadedToken = loadAuthToken();
     if (loadedToken) {
       setToken(loadedToken);
+      authApi.setHeader(loadedToken);
       setIsLoading(false);
     } else {
       setIsLoading(false);
