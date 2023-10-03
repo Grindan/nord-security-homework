@@ -10,7 +10,11 @@ import {
   useEffect,
 } from 'react';
 
-import { loadAuthToken, removeAuthToken } from '@/utils/localStorage';
+import {
+  loadAuthToken,
+  saveAuthToken,
+  removeAuthToken,
+} from '@/utils/localStorage';
 import authApi from '@/api/auth';
 
 export type ContextType = {
@@ -22,7 +26,7 @@ export type ContextType = {
 const AuthContext = createContext<ContextType>({
   isLoading: true,
   token: null,
-  setToken: () => { },
+  setToken: () => {},
 });
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -31,6 +35,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const updateToken = (newToken: string) => {
     setToken(newToken);
+    saveAuthToken(newToken);
     authApi.setHeader(newToken);
   };
 

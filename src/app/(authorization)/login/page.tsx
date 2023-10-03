@@ -11,7 +11,7 @@ import { useAuthContext } from '@/context/AuthContext';
 
 const LoginPage = () => {
   const router = useRouter();
-  const { setToken } = useAuthContext()
+  const { setToken } = useAuthContext();
 
   const onSubmit = (
     values: LoginFormValues,

@@ -15,7 +15,6 @@ const COLUMNS: Array<Column<'name' | 'distance'>> = [
 const DashboardPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [servers, setServers] = useState([]);
-  const [sortBy, setSortBy] = useState(null);
 
   useEffect(() => {
     loadServers();
