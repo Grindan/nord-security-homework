@@ -1,18 +1,14 @@
 'use client';
 
-import { FC, ReactNode, useEffect } from 'react';
+import { FC, PropsWithChildren, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import LoadingScreen from '@/components/LoadingScreen';
-import { useUserContext } from '@/context/UserContext';
+import { useAuthContext } from '@/context/AuthContext';
 
-type Props = {
-  children: ReactNode;
-};
-
-const AuthPageLayout: FC<Props> = ({ children }) => {
+const AuthPageLayout: FC<PropsWithChildren> = ({ children }) => {
   const router = useRouter();
-  const { token, isLoading } = useUserContext();
+  const { token, isLoading } = useAuthContext();
 
   useEffect(() => {
     if (!isLoading && token) {

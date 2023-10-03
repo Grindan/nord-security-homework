@@ -6,11 +6,12 @@ import { Formik, Form, Field, FormikHelpers } from 'formik';
 import Input from '@/components/Input';
 import { LoginFormValues } from '@/types/form';
 import { required } from '@/utils/validators';
-import { saveAuthToken } from '@/utils/localStorage';
 import authApi from '@/api/auth';
+import { useAuthContext } from '@/context/AuthContext';
 
 const LoginPage = () => {
   const router = useRouter();
+  const { setToken } = useAuthContext()
 
   const onSubmit = (
     values: LoginFormValues,
@@ -19,7 +20,7 @@ const LoginPage = () => {
     authApi
       .login(values)
       .then(({ token }) => {
-        saveAuthToken(token);
+        setToken(token);
         router.push('/dashboard');
       })
       .catch((err) => {

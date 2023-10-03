@@ -17,19 +17,15 @@ const DashboardPage = () => {
   const [servers, setServers] = useState([]);
   const [sortBy, setSortBy] = useState(null);
 
-  console.log({ servers })
-
   useEffect(() => {
     loadServers();
   }, []);
 
   const loadServers = () => {
-    serversApi
-      .fetchServers()
-      .then((servers) => {
-        setServers(servers);
-        setIsLoading(false);
-      });
+    serversApi.fetchServers().then((servers) => {
+      setServers(servers);
+      setIsLoading(false);
+    });
   };
 
   if (isLoading) {
@@ -37,7 +33,7 @@ const DashboardPage = () => {
   }
 
   return (
-    <section className="color-black text-black">
+    <section className="">
       <h1>Servers</h1>
       <Table data={servers} columns={COLUMNS} />
     </section>
