@@ -2,6 +2,8 @@ import { FC, useState } from 'react';
 
 import { Server } from '@/types/servers';
 import { Column, SortBy } from '@/types/table';
+import ChevronDownIcon from '@/components/icons/ChevronDownIcon';
+import CrossIcon from './icons/CrossIcon';
 
 type Props<T> = {
   data: Array<Server>;
@@ -38,8 +40,10 @@ const Table: FC<Props<'name' | 'distance'>> = ({ data, columns }) => {
     setSortedData(newSortedData);
   };
 
-  const resetSorting = () => {
+  const clearSorting = () => {
     setSortedData(data);
+    setSortKey(null);
+    setSortDirection(null);
   };
 
   return (
@@ -47,8 +51,30 @@ const Table: FC<Props<'name' | 'distance'>> = ({ data, columns }) => {
       <thead>
         <tr>
           {columns.map((column) => (
-            <th key={column.name} onClick={() => sortData(column.name)}>
-              {column.label}
+            <th
+              key={column.name}
+              className={
+                'cursor-pointer px-2 py-3 ' + `w-[${100 / columns.length}%]`
+              }
+              onClick={() => sortData(column.name)}
+            >
+              <div className="flex">
+                {column.label}
+                <ChevronDownIcon
+                  className={
+                    'mx-3' +
+                    (column.name === sortKey ? '' : ' invisible') +
+                    (sortDirection === SortBy.Asc ? ' rotate-180' : '')
+                  }
+                />
+                <CrossIcon
+                  className={column.name === sortKey ? '' : ' invisible'}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    clearSorting();
+                  }}
+                />
+              </div>
             </th>
           ))}
         </tr>
@@ -57,7 +83,9 @@ const Table: FC<Props<'name' | 'distance'>> = ({ data, columns }) => {
         {sortedData.map((row: Server) => (
           <tr key={row.id}>
             {columns.map((column) => (
-              <td key={column.name}>{row[column.name]}</td>
+              <td key={column.name} className="py-1 px-2 border">
+                {row[column.name]}
+              </td>
             ))}
           </tr>
         ))}

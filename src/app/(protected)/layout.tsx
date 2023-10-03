@@ -17,7 +17,9 @@ const ProtectedPageLayout: FC<PropsWithChildren> = ({ children }) => {
   }, [isLoading, token]);
 
   if (!isLoading && token) {
-    return children;
+    return (
+      <div className="mx-4 my-6 flex flex-col items-center">{children}</div>
+    );
   }
 
   return <LoadingScreen />;
