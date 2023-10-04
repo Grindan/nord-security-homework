@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
 type Props = {
-  className: string;
+  className?: string;
   onClick?: (event: any) => void;
 };
 
-const ChevronDownIcon: FC<Props> = ({ className, onClick }) => {
+const CrossIcon: FC<Props> = ({ className, onClick }) => {
   return (
     <svg
       width="24px"
@@ -24,4 +24,4 @@ const ChevronDownIcon: FC<Props> = ({ className, onClick }) => {
   );
 };
 
-export default ChevronDownIcon;
+export default CrossIcon;

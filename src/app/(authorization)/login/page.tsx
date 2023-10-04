@@ -8,10 +8,12 @@ import { LoginFormValues } from '@/types/form';
 import { required } from '@/utils/validators';
 import authApi from '@/api/auth';
 import { useAuthContext } from '@/context/AuthContext';
+import { useNotificationsContext } from '@/context/NotificationsContext';
 
 const LoginPage = () => {
   const router = useRouter();
   const { setToken } = useAuthContext();
+  const { add } = useNotificationsContext();
 
   const onSubmit = (
     values: LoginFormValues,
@@ -24,7 +26,8 @@ const LoginPage = () => {
         router.push('/dashboard');
       })
       .catch((err) => {
-        // todo: add notification/alert
+        add(err.message);
+        actions.resetForm();
       })
       .finally(() => {
         actions.setSubmitting(false);
@@ -32,54 +35,48 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="flex flex-col h-auto max-w-md bg-white rounded-[16px] md:rounded-[24px] px-5 py-6 w-full md:w-[568px]">
-        <h1 className="text-2xl text-center mb-5 text-slate-800">Login Page</h1>
-        <Formik
-          initialValues={{ username: '', password: '' } as LoginFormValues}
-          onSubmit={onSubmit}
-        >
-          {({
-            errors,
-            isValid,
-            dirty,
-            touched,
-            handleSubmit,
-            isSubmitting,
-          }) => {
-            return (
-              <Form onSubmit={handleSubmit}>
-                <Field
-                  name="username"
-                  label="Username"
-                  component={Text}
-                  validate={required}
-                  error={touched.username && errors.username}
-                  className="mb-2"
-                />
+    <div className="flex flex-col h-auto max-w-md bg-white rounded-[16px] md:rounded-[24px] px-5 py-6 w-full md:w-[568px]">
+      <h1 className="text-2xl text-center mb-5 text-slate-800">Login Page</h1>
+      <Formik
+        initialValues={{ username: '', password: '' } as LoginFormValues}
+        onSubmit={onSubmit}
+      >
+        {({ errors, isValid, dirty, touched, handleSubmit, isSubmitting }) => {
+          return (
+            <Form onSubmit={handleSubmit}>
+              <Field
+                name="username"
+                label="Username"
+                component={Text}
+                validate={required}
+                error={touched.username && errors.username}
+                className="mb-2"
+                tabIndex={0}
+              />
 
-                <Field
-                  name="password"
-                  label="Password"
-                  type="password"
-                  component={Password}
-                  validate={required}
-                  error={touched.password && errors.password}
-                  className="mb-2"
-                />
+              <Field
+                name="password"
+                label="Password"
+                type="password"
+                component={Password}
+                validate={required}
+                error={touched.password && errors.password}
+                className="mb-2"
+                tabIndex={0}
+              />
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting || !isValid || !dirty}
-                  className="rounded-full w-full py-3 px-4 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-400 text-white font-semibold"
-                >
-                  Login
-                </button>
-              </Form>
-            );
-          }}
-        </Formik>
-      </div>
+              <button
+                tabIndex={0}
+                type="submit"
+                disabled={isSubmitting || !isValid || !dirty}
+                className="rounded-full w-full py-3 px-4 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-400 text-white font-semibold"
+              >
+                Login
+              </button>
+            </Form>
+          );
+        }}
+      </Formik>
     </div>
   );
 };
