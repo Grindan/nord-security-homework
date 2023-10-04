@@ -1,10 +1,9 @@
-import { FC } from 'react';
+import { FC, HTMLAttributes } from 'react';
 
-type Props = {
-  className: string;
-};
-
-const ChevronDownIcon: FC<Props> = ({ className }) => {
+const ChevronDownIcon: FC<HTMLAttributes<SVGSVGElement>> = ({
+  className,
+  ...otherProps
+}) => {
   return (
     <svg
       width="24px"
@@ -13,6 +12,7 @@ const ChevronDownIcon: FC<Props> = ({ className }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={`w-[24px] h-[24px] ${className}`}
+      {...otherProps}
     >
       <g>
         <path

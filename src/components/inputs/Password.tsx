@@ -34,9 +34,15 @@ const Password: FC<Props & FieldProps> = ({
           focus:border-blue-400 focus:shadow focus:shadow-slate-300"
         />
         <EyeIcon
+          tabIndex={0}
           isOpen={isShown}
           onClick={toggleShown}
-          className="absolute right-[10px] top-[6px]"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              toggleShown();
+            }
+          }}
+          className="absolute right-[10px] top-[6px] outline-1 outline-blue-400"
         />
       </div>
       <p className="ml-3 mt-1 h-[20px] text-sm text-red-600">{error}</p>

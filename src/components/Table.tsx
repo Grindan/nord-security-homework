@@ -54,15 +54,22 @@ const Table: FC<Props<'name' | 'distance'>> = ({ data, columns }) => {
             <th
               key={column.name}
               className={
-                'cursor-pointer px-2 py-3 ' + `w-[${100 / columns.length}%]`
+                'cursor-pointer px-2 py-3 outline-blue-400' +
+                `w-[${100 / columns.length}%]`
               }
               onClick={() => sortData(column.name)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  sortData(column.name);
+                }
+              }}
+              tabIndex={0}
             >
               <div className="flex">
                 {column.label}
                 <ChevronDownIcon
                   className={
-                    'mx-3' +
+                    'mx-3 outline-blue-400' +
                     (column.name === sortKey ? '' : ' opacity-10') +
                     (sortDirection === SortBy.Asc && column.name === sortKey
                       ? ' rotate-180'
@@ -75,6 +82,13 @@ const Table: FC<Props<'name' | 'distance'>> = ({ data, columns }) => {
                     e.stopPropagation();
                     clearSorting();
                   }}
+                  onKeyDown={(e) => {
+                    e.stopPropagation();
+                    if (e.key === 'Enter') {
+                      clearSorting();
+                    }
+                  }}
+                  tabIndex={0}
                 />
               </div>
             </th>
