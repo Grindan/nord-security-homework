@@ -3,15 +3,13 @@ import { FieldProps } from 'formik';
 
 type Props = {
   label: string;
-  type: string;
   className?: string;
   error?: string | boolean;
 };
 
-const Input: FC<Props & FieldProps> = ({
+const Text: FC<Props & FieldProps> = ({
   field,
   label,
-  type,
   error,
   className = '',
 }) => {
@@ -21,7 +19,7 @@ const Input: FC<Props & FieldProps> = ({
       <input
         {...field}
         id={field.name}
-        type={type}
+        type="text"
         placeholder={label}
         className="
           rounded-lg w-full text-lg text-slate-500 border border-slate-400 outline-none py-1 px-3
@@ -32,4 +30,4 @@ const Input: FC<Props & FieldProps> = ({
   );
 };
 
-export default Input;
+export default Text;

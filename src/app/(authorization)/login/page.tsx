@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { Formik, Form, Field, FormikHelpers } from 'formik';
 
-import Input from '@/components/Input';
+import { Text, Password } from '@/components/inputs';
 import { LoginFormValues } from '@/types/form';
 import { required } from '@/utils/validators';
 import authApi from '@/api/auth';
@@ -52,8 +52,7 @@ const LoginPage = () => {
                 <Field
                   name="username"
                   label="Username"
-                  type="text"
-                  component={Input}
+                  component={Text}
                   validate={required}
                   error={touched.username && errors.username}
                   className="mb-2"
@@ -63,7 +62,7 @@ const LoginPage = () => {
                   name="password"
                   label="Password"
                   type="password"
-                  component={Input}
+                  component={Password}
                   validate={required}
                   error={touched.password && errors.password}
                   className="mb-2"
