@@ -21,12 +21,14 @@ export type ContextType = {
   isLoading: boolean;
   token: string | null;
   setToken: (token: string) => void;
+  logout: () => void;
 };
 
 const AuthContext = createContext<ContextType>({
   isLoading: true,
   token: null,
   setToken: () => {},
+  logout: () => {},
 });
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {

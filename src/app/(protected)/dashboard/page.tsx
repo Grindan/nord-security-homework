@@ -32,7 +32,7 @@ const DashboardPage = () => {
   }
 
   return (
-    <section className="rounded-lg w-[568px]">
+    <section className="rounded-lg w-[568px] bg-white p-5">
       <h1 className="text-2xl text-center mb-5 text-slate-800">Servers</h1>
       <Table data={servers} columns={COLUMNS} />
     </section>
