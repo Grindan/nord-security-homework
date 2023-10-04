@@ -29,6 +29,7 @@ const ProtectedPageLayout: FC<PropsWithChildren> = ({ children }) => {
             className="cursor-pointer opacity-70 hover:opacity-100 w-[20px] h-[20px] md:w-[24px] md:h-[24px]"
             onClick={onLogoutClick}
             tabIndex={0}
+            aria-label="Logout"
           />
         </header>
         <main className="p-3 pt-[60px] md:pt-[75px] flex flex-col items-center">

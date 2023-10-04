@@ -64,9 +64,9 @@ export const NotificationsProvider: FC<PropsWithChildren> = ({ children }) => {
             key={notification.id}
             className="flex justify-between md:w-[400px] bg-[#f44336] rounded px-2 py-1 md:px-3 md:py-2 mb-3 md:mb-3"
           >
-            <p className="text-white text-center text-xs md:text-sm">
+            <pre className="text-white text-center text-xs md:text-sm">
               {notification.text}
-            </p>
+            </pre>
           </div>
         ))}
       </div>

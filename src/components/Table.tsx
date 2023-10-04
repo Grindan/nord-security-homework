@@ -64,6 +64,12 @@ const Table: FC<Props<'name' | 'distance'>> = ({ data, columns }) => {
                 }
               }}
               tabIndex={0}
+              aria-label={`Sort data by ${
+                column.name === sortKey && sortDirection === SortBy.Asc
+                  ? 'Asc'
+                  : 'Desc'
+              }`}
+              aria-description="Press header cell to sort data by this column value."
             >
               <div className="flex">
                 {column.label}
@@ -74,6 +80,9 @@ const Table: FC<Props<'name' | 'distance'>> = ({ data, columns }) => {
                     (sortDirection === SortBy.Asc && column.name === sortKey
                       ? ' rotate-180'
                       : '')
+                  }
+                  aria-label={
+                    column.name === sortKey ? 'Asc sorting' : 'Desc sorting'
                   }
                 />
                 <CrossIcon
@@ -89,6 +98,7 @@ const Table: FC<Props<'name' | 'distance'>> = ({ data, columns }) => {
                     }
                   }}
                   tabIndex={0}
+                  aria-label="Clear sorting"
                 />
               </div>
             </th>

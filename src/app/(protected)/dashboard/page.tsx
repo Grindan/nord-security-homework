@@ -7,6 +7,7 @@ import Table from '@/components/Table';
 import serversApi from '@/api/servers';
 import { Column } from '@/types/table';
 import { useAuthContext } from '@/context/AuthContext';
+import { useNotificationsContext } from '@/context/NotificationsContext';
 
 const COLUMNS: Array<Column<'name' | 'distance'>> = [
   { name: 'name', label: 'Name' },
@@ -17,6 +18,7 @@ const DashboardPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [servers, setServers] = useState([]);
   const { logout } = useAuthContext();
+  const { add } = useNotificationsContext();
 
   const loadServers = useCallback(() => {
     serversApi
@@ -27,9 +29,10 @@ const DashboardPage = () => {
       })
       .catch((err) => {
         if (err?.response?.status === 401) {
+          add('Token was expired.');
           logout();
         } else {
-          // todo: show error message
+          add(`Something went wrong with servers loading:\n${err.message}`);
         }
       });
   }, [logout]);

@@ -26,8 +26,12 @@ const LoginPage = () => {
         router.push('/dashboard');
       })
       .catch((err) => {
-        add(err.message);
-        actions.resetForm();
+        if (err?.response?.status === 401) {
+          add('Wrong username or password.');
+          actions.resetForm();
+        } else {
+          add(`Something went wrong when login:\n${err.message}`);
+        }
       })
       .finally(() => {
         actions.setSubmitting(false);
@@ -52,6 +56,7 @@ const LoginPage = () => {
                 error={touched.username && errors.username}
                 className="mb-2"
                 tabIndex={0}
+                aria-label="Username"
               />
 
               <Field
@@ -63,13 +68,16 @@ const LoginPage = () => {
                 error={touched.password && errors.password}
                 className="mb-2"
                 tabIndex={0}
+                aria-label="Password"
               />
 
               <button
-                tabIndex={0}
                 type="submit"
                 disabled={isSubmitting || !isValid || !dirty}
                 className="rounded-full w-full py-3 px-4 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-400 text-white font-semibold"
+                tabIndex={0}
+                aria-label="Login"
+                aria-hidden={false}
               >
                 Login
               </button>
