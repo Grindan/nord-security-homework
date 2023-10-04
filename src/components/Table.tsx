@@ -76,7 +76,9 @@ const Table: FC<Props<'name' | 'distance'>> = ({ data, columns }) => {
                 <ChevronDownIcon
                   className={
                     'mx-3 outline-blue-400' +
-                    (column.name === sortKey ? '' : ' opacity-10') +
+                    (column.name === sortKey
+                      ? ' opacity-75 hover:opacity-100'
+                      : ' opacity-10 hover:opacity-50') +
                     (sortDirection === SortBy.Asc && column.name === sortKey
                       ? ' rotate-180'
                       : '')
@@ -86,7 +88,9 @@ const Table: FC<Props<'name' | 'distance'>> = ({ data, columns }) => {
                   }
                 />
                 <CrossIcon
-                  className={column.name === sortKey ? '' : ' invisible'}
+                  className={`opacity-75 hover:opacity-100 ${
+                    column.name === sortKey ? '' : ' invisible'
+                  }`}
                   onClick={(e) => {
                     e.stopPropagation();
                     clearSorting();

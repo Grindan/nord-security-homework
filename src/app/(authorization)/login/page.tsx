@@ -39,8 +39,10 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex flex-col h-auto max-w-md bg-white rounded-[16px] md:rounded-[24px] px-5 py-6 w-full md:w-[568px]">
-      <h1 className="text-2xl text-center mb-5 text-slate-800">Login Page</h1>
+    <section className="flex flex-col h-auto max-w-md bg-white rounded-[16px] md:rounded-[24px] px-5 py-6 w-full md:w-[568px] shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+      <h1 className="text-2xl font-medium text-center mb-5 text-slate-800">
+        Login Page
+      </h1>
       <Formik
         initialValues={{ username: '', password: '' } as LoginFormValues}
         onSubmit={onSubmit}
@@ -74,7 +76,9 @@ const LoginPage = () => {
               <button
                 type="submit"
                 disabled={isSubmitting || !isValid || !dirty}
-                className="rounded-full w-full py-3 px-4 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-400 text-white font-semibold"
+                className="rounded-full w-full py-3 px-4 text-white font-semibold
+                bg-gradient-to-br from-teal-400 to-indigo-400 disabled:from-teal-100 disabled:to-indigo-100
+                hover:scale-105 ease-in-out duration-75 disabled:scale-100"
                 tabIndex={0}
                 aria-label="Login"
                 aria-hidden={false}
@@ -85,7 +89,7 @@ const LoginPage = () => {
           );
         }}
       </Formik>
-    </div>
+    </section>
   );
 };
 

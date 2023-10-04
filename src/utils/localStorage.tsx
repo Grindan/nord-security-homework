@@ -5,7 +5,7 @@ export const loadAuthToken = () => {
   return value ? JSON.parse(value) : null;
 };
 
-export const saveAuthToken = (value: any) => {
+export const saveAuthToken = (value: string) => {
   return localStorage.setItem(PATH, JSON.stringify(value));
 };
 

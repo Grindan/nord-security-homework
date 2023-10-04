@@ -18,7 +18,10 @@ const AuthPageLayout: FC<PropsWithChildren> = ({ children }) => {
 
   if (!isLoading && !token) {
     return (
-      <main className="p-3 min-h-screen flex items-center justify-center">
+      <main
+        className="p-3 min-h-screen flex items-center justify-center
+        bg-no-repeat bg-nord-bg-image bg-mobile-bg-position md:bg-desktop-bg-position"
+      >
         {children}
       </main>
     );

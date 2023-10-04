@@ -35,7 +35,7 @@ const DashboardPage = () => {
           add(`Something went wrong with servers loading:\n${err.message}`);
         }
       });
-  }, [logout]);
+  }, [logout, add]);
 
   useEffect(() => {
     loadServers();
@@ -46,8 +46,10 @@ const DashboardPage = () => {
   }
 
   return (
-    <section className="rounded-lg w-full md:w-[568px] bg-white p-3 md:p-5">
-      <h1 className="text-2xl text-center mb-5 text-slate-800">Servers</h1>
+    <section className="rounded-lg w-full max-w-[1080px] bg-white p-3 md:p-5">
+      <h2 className="text-2xl text-center mb-5 text-slate-800 font-medium">
+        Servers
+      </h2>
       <Table data={servers} columns={COLUMNS} />
     </section>
   );
