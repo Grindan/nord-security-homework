@@ -24,10 +24,15 @@ const ProtectedPageLayout: FC<PropsWithChildren> = ({ children }) => {
   if (!isLoading && token) {
     return (
       <>
-        <header className="h-[60px] w-full border-b bg-white flex items-center justify-end px-4 py-3">
-          <LogoutIcon className="cursor-pointer" onClick={onLogoutClick} />
+        <header className="fixed h-[50px] md:h-[60px] w-full border-b bg-white flex items-center justify-end px-4 py-3">
+          <LogoutIcon
+            className="cursor-pointer opacity-70 hover:opacity-100 w-[20px] h-[20px] md:w-[24px] md:h-[24px]"
+            onClick={onLogoutClick}
+          />
         </header>
-        <main className="mx-4 my-6 flex flex-col items-center">{children}</main>
+        <main className="p-3 pt-[60px] md:pt-[75px] flex flex-col items-center">
+          {children}
+        </main>
       </>
     );
   }

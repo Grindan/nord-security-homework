@@ -33,8 +33,8 @@ const LoginPage = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <div className="flex flex-col h-auto max-w-md bg-white rounded-[24px] px-5 py-6 w-[568px]">
-        <p className="text-2xl text-center mb-5 text-slate-800">Login Page</p>
+      <div className="flex flex-col h-auto max-w-md bg-white rounded-[16px] md:rounded-[24px] px-5 py-6 w-full md:w-[568px]">
+        <h1 className="text-2xl text-center mb-5 text-slate-800">Login Page</h1>
         <Formik
           initialValues={{ username: '', password: '' } as LoginFormValues}
           onSubmit={onSubmit}

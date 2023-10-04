@@ -63,8 +63,10 @@ const Table: FC<Props<'name' | 'distance'>> = ({ data, columns }) => {
                 <ChevronDownIcon
                   className={
                     'mx-3' +
-                    (column.name === sortKey ? '' : ' invisible') +
-                    (sortDirection === SortBy.Asc ? ' rotate-180' : '')
+                    (column.name === sortKey ? '' : ' opacity-10') +
+                    (sortDirection === SortBy.Asc && column.name === sortKey
+                      ? ' rotate-180'
+                      : '')
                   }
                 />
                 <CrossIcon

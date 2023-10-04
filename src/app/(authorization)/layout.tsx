@@ -17,7 +17,7 @@ const AuthPageLayout: FC<PropsWithChildren> = ({ children }) => {
   }, [isLoading, token]);
 
   if (!isLoading && !token) {
-    return children;
+    return <main className="p-3">{children}</main>;
   }
 
   return <LoadingScreen />;
