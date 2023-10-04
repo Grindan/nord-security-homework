@@ -15,7 +15,9 @@ const Text: FC<Props & FieldProps> = ({
 }) => {
   return (
     <div className={`flex flex-col ${className}`}>
-      <label className="text-sm text-slate-600 mb-1">{label}</label>
+      <label htmlFor={field.name} className="text-sm text-slate-600 mb-1">
+        {label}
+      </label>
       <input
         {...field}
         id={field.name}

@@ -13,6 +13,7 @@ import {
 
 export type ContextType = {
   add: (text: string) => void;
+  notifications: Array<Notification>;
 };
 
 type Notification = {
@@ -22,6 +23,7 @@ type Notification = {
 
 const NotificationsContext = createContext<ContextType>({
   add: () => {},
+  notifications: [],
 });
 
 export const NotificationsProvider: FC<PropsWithChildren> = ({ children }) => {

@@ -8,6 +8,7 @@ import {
   useMemo,
   useState,
   useEffect,
+  useCallback,
 } from 'react';
 
 import {
@@ -35,25 +36,27 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [token, setToken] = useState<string | null>(null);
 
-  const updateToken = (newToken: string) => {
+  const updateToken = useCallback((newToken: string) => {
     setToken(newToken);
     saveAuthToken(newToken);
     authApi.setHeader(newToken);
-  };
+  }, []);
 
   useEffect(() => {
-    const loadedToken = loadAuthToken();
-    if (loadedToken) {
-      updateToken(loadedToken);
+    if (isLoading && !token) {
+      const loadedToken = loadAuthToken();
+      if (loadedToken) {
+        updateToken(loadedToken);
+      }
+      setIsLoading(false);
     }
-    setIsLoading(false);
-  }, [isLoading]);
+  }, [isLoading, token, updateToken]);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setToken(null);
     removeAuthToken();
     authApi.logout();
-  };
+  }, []);
 
   const value = useMemo(
     () => ({
@@ -62,7 +65,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
       setToken: updateToken,
       logout,
     }),
-    [isLoading, token],
+    [isLoading, token, updateToken, logout],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

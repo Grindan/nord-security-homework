@@ -19,12 +19,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <link rel="icon" type="image/svg+xml" href="/images/favicon.ico" />
-      <AuthProvider>
-        <body className={`${inter.className} bg-slate-100`}>
+      <head>
+        <link rel="icon" type="image/svg+xml" href="/images/favicon.ico" />
+      </head>
+      <body className={`${inter.className} bg-slate-100`}>
+        <AuthProvider>
           <NotificationsProvider>{children}</NotificationsProvider>
-        </body>
-      </AuthProvider>
+        </AuthProvider>
+      </body>
     </html>
   );
 }

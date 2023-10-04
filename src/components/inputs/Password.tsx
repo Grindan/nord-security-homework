@@ -22,18 +22,22 @@ const Password: FC<Props & FieldProps> = ({
 
   return (
     <div className={`flex flex-col ${className}`}>
-      <label className="text-sm text-slate-600 mb-1">{label}</label>
+      <label htmlFor={field.name} className="text-sm text-slate-600 mb-1">
+        {label}
+      </label>
       <div className="relative">
         <input
           {...field}
           id={field.name}
           type={isShown ? 'text' : 'password'}
+          role="textbox"
           placeholder={label}
           className="
           rounded-lg w-full text-lg text-slate-500 border border-slate-400 outline-none py-1 pl-3 pr-[40px]
           focus:border-blue-400 focus:shadow focus:shadow-slate-300"
         />
         <EyeIcon
+          role="button"
           tabIndex={0}
           isOpen={isShown}
           onClick={toggleShown}

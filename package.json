@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest --watch",
+    "test:ci": "jest --ci",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "axios": "^1.5.1",
@@ -16,12 +19,19 @@
     "react-dom": "latest"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.1.2",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^29.5.5",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "autoprefixer": "latest",
+    "axios-mock-adapter": "^1.22.0",
     "eslint": "latest",
     "eslint-config-next": "latest",
+    "jest": "^29.6.4",
+    "jest-environment-jsdom": "^29.6.4",
     "postcss": "latest",
     "prettier": "^3.0.3",
     "tailwindcss": "latest",
