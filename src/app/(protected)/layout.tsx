@@ -15,7 +15,7 @@ const ProtectedPageLayout: FC<PropsWithChildren> = ({ children }) => {
     if (!isLoading && !token) {
       router.push('/login');
     }
-  }, [isLoading, token]);
+  }, [router, isLoading, token]);
 
   const onLogoutClick = () => {
     logout();

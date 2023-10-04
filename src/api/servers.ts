@@ -9,4 +9,5 @@ class ServersApi {
   }
 }
 
-export default new ServersApi();
+const serversApi = new ServersApi();
+export default serversApi;

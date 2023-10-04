@@ -14,7 +14,7 @@ const AuthPageLayout: FC<PropsWithChildren> = ({ children }) => {
     if (!isLoading && token) {
       router.push('/dashboard');
     }
-  }, [isLoading, token]);
+  }, [router, isLoading, token]);
 
   if (!isLoading && !token) {
     return (

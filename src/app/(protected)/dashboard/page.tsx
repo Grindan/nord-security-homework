@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import LoadingScreen from '@/components/LoadingScreen';
 import Table from '@/components/Table';
@@ -18,11 +18,7 @@ const DashboardPage = () => {
   const [servers, setServers] = useState([]);
   const { logout } = useAuthContext();
 
-  useEffect(() => {
-    loadServers();
-  }, []);
-
-  const loadServers = () => {
+  const loadServers = useCallback(() => {
     serversApi
       .fetchServers()
       .then((servers) => {
@@ -36,7 +32,11 @@ const DashboardPage = () => {
           // todo: show error message
         }
       });
-  };
+  }, [logout]);
+
+  useEffect(() => {
+    loadServers();
+  }, [loadServers]);
 
   if (isLoading) {
     return <LoadingScreen />;

@@ -8,6 +8,7 @@ import {
   useMemo,
   useState,
   useEffect,
+  useCallback,
 } from 'react';
 
 export type ContextType = {
@@ -28,20 +29,23 @@ export const NotificationsProvider: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {}, []);
 
-  const add = (text: string) => {
-    const id = new Date().getTime();
-    setNotifications([...notifications, { id, text }]);
+  const add = useCallback(
+    (text: string) => {
+      const id = new Date().getTime();
+      setNotifications([...notifications, { id, text }]);
 
-    setTimeout(
-      (notificationId: number) => {
-        setNotifications(
-          notifications.filter((item) => item.id !== notificationId),
-        );
-      },
-      2000,
-      id,
-    );
-  };
+      setTimeout(
+        (notificationId: number) => {
+          setNotifications(
+            notifications.filter((item) => item.id !== notificationId),
+          );
+        },
+        2000,
+        id,
+      );
+    },
+    [notifications],
+  );
 
   const value = useMemo(
     () => ({

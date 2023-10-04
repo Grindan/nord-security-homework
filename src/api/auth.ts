@@ -19,4 +19,5 @@ class AuthApi {
   }
 }
 
-export default new AuthApi();
+const authApi = new AuthApi();
+export default authApi;
